@@ -1,0 +1,86 @@
+<!--templates/ticket_class_2.html-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Django Highcharts Example</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">Return to homepage</a>
+    <div id="container"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: '좌석 등급에 따른 타이타닉호 생존/사망 인원 및 생존율'
+            },
+            xAxis: {
+                categories: {{ categories|safe }}  /* safe 필터 */
+            },
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}%',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                title: {
+                    text: '생존률',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                }
+            }, { // Secondary yAxis
+                title: {
+                    text: '인원',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                labels: {
+                    format: '{value} 명',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                opposite: true
+            }],
+             tooltip: {
+                shared: true
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                x: 120,
+                verticalAlign: 'top',
+                y: 100,
+                floating: true,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || // theme
+                    'rgba(255,255,255,0.25)'
+            },
+            series: [{
+                name: '생존',
+                type: 'column',
+                yAxis: 1,
+                data: {{ survived_series }},
+                color: 'green'
+            }, {
+                name: '사망',
+                type: 'column',
+                yAxis: 1,
+                data: {{ not_survived_series }},
+                color: 'red'
+            }, {
+                name: '생존률',
+                type: 'spline',
+                data: {{ survival_rate_series }},
+                color: Highcharts.getOptions().colors[0]
+            }]
+        });
+    </script>
+</body>
+</html>

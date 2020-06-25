@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Django Highcharts Example</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">Return to homepage</a>
+    <div id="container"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script>
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'Per Capita covid-19 Cases by Country'
+            },
+
+            subtitle: {
+                text: 'For the USA, China, Germany, France, United Kingdom, and Korea, South Includes Current Cases, Recoveries, and Deaths'
+            },
+
+            yAxis: {
+                title: {
+                    text: '100만명 당 발생'
+                }
+            },
+
+            xAxis: {
+                categories: {{ date|safe }}
+            },
+
+            legend: {
+                 layout: 'vertical',
+                align: 'left',
+                x: 120,
+                verticalAlign: 'top',
+                y: 100,
+                floating: true
+            },
+
+            series: [{
+                name: 'Germany',
+                data: {{ Germany_Series }}
+            }, {
+                name: 'US',
+                data: {{ US_Series }}
+            }, {
+                name: 'France',
+                data: {{ France_Series }}
+            }, {
+                name: 'Korea',
+                data: {{ Korea_Series }}
+            }, {
+                name: 'United Kingdom',
+                data: {{ UK_Series }}
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+    </script>
+</body>
+</html>

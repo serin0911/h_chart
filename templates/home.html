@@ -1,0 +1,17 @@
+<!--templates/home.html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Django Highcharts Example</title>
+</head>
+<body>
+    <p>2020년 1학기 기말고사 과제 - 217230121 이세린</p>
+  <ul>
+      <li><a href="{% url 'world_population' %}">World Population</a></li>
+      <li><a href="{% url 'covid_cases' %}">코로나19 발생 현황 시각화</a></li>
+      <li><a href="{% url 'covid_cases_per_capita' %}">코로나19 발생 현황 인구대비 시각화</a></li>
+      <li><a href="{% url 'ticket_class_view' %}">타이타닉호 사망/생존 데이터 시각화</a></li>
+  </ul>
+</body>
+</html>
